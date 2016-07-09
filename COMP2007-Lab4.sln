@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "COMP2007-Lab4", "COMP2007-Lab4\COMP2007-Lab4.csproj", "{1DA90554-55E8-4FE6-8CFB-B5DB1464DB74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "COMP2007-Lab4.Tests", "COMP2007-Lab4.Tests\COMP2007-Lab4.Tests.csproj", "{69CBA79B-92EB-47FB-919E-72DC8EA1BFCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DA90554-55E8-4FE6-8CFB-B5DB1464DB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA90554-55E8-4FE6-8CFB-B5DB1464DB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA90554-55E8-4FE6-8CFB-B5DB1464DB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA90554-55E8-4FE6-8CFB-B5DB1464DB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69CBA79B-92EB-47FB-919E-72DC8EA1BFCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69CBA79B-92EB-47FB-919E-72DC8EA1BFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69CBA79B-92EB-47FB-919E-72DC8EA1BFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69CBA79B-92EB-47FB-919E-72DC8EA1BFCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
