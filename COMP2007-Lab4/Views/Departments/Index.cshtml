@@ -3,34 +3,39 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Budget)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
-            </td>
-        </tr>
-    }
-</table>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <h2>@ViewBag.Title</h2>
+
+        <p>
+            <a href="@Url.Action("","Create")" class="btn btn-success"><i class="fa fa-plus fa-lg"></i> Add Department</a>
+        </p>
+        <table class="table table-striped table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Budget)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Budget)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Edit", new { id = item.DepartmentID })" class="btn btn-primary"><i class="fa fa-edit fa-lg"></i>Edit</a>
+                        <a href="@Url.Action(" Details", "Details" , new { id=item.DepartmentID })" class="btn btn-default"><i class="fa fa-eye fa-lg"></i> Details</a>
+                        <a href="@Url.Action("Delete", "Delete", new { id = item.DepartmentID })" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a>
+
+                    </td>
+                </tr>
+            }
+        </table>
