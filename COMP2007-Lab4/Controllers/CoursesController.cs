@@ -11,18 +11,18 @@ using COMP2007_Lab4.Models;
 
 namespace COMP2007_Lab4.Controllers
 {
-    public class CourseController : Controller
+    public class CoursesController : Controller
     {
         private ContosoModel db = new ContosoModel();
 
-        // GET: Cours
+        // GET: Courses
         public async Task<ActionResult> Index()
         {
             var courses = db.Courses.Include(c => c.Department);
             return View(await courses.ToListAsync());
         }
 
-        // GET: Cours/Details/5
+        // GET: Courses/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,14 +37,14 @@ namespace COMP2007_Lab4.Controllers
             return View(course);
         }
 
-        // GET: Cours/Create
+        // GET: Courses/Create
         public ActionResult Create()
         {
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
-        // POST: Cours/Create
+        // POST: Courses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -62,7 +62,7 @@ namespace COMP2007_Lab4.Controllers
             return View(course);
         }
 
-        // GET: Cours/Edit/5
+        // GET: Courses/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,7 +78,7 @@ namespace COMP2007_Lab4.Controllers
             return View(course);
         }
 
-        // POST: Cours/Edit/5
+        // POST: Courses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -95,7 +95,7 @@ namespace COMP2007_Lab4.Controllers
             return View(course);
         }
 
-        // GET: Cours/Delete/5
+        // GET: Courses/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace COMP2007_Lab4.Controllers
             return View(course);
         }
 
-        // POST: Cours/Delete/5
+        // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
