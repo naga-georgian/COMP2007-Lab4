@@ -18,7 +18,7 @@ namespace COMP2007_Lab4.Controllers
         // GET: Departments
         public async Task<ActionResult> Index()
         {
-            return View(await db.Students.ToListAsync());
+            return View(await db.Departments.ToListAsync());
         }
 
         // GET: Departments/Details/5
@@ -28,12 +28,12 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Department department = await db.Departments.FindAsync(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(department);
         }
 
         // GET: Departments/Create
@@ -47,16 +47,16 @@ namespace COMP2007_Lab4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Departments.Add(department);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(department);
         }
 
         // GET: Departments/Edit/5
@@ -66,12 +66,12 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Department department = await db.Departments.FindAsync(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(department);
         }
 
         // POST: Departments/Edit/5
@@ -79,15 +79,15 @@ namespace COMP2007_Lab4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Edit([Bind(Include = "DepartmentID,Name,Budget")] Department department)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(department).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            return View(department);
         }
 
         // GET: Departments/Delete/5
@@ -97,12 +97,12 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Department department = await db.Departments.FindAsync(id);
+            if (department == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(department);
         }
 
         // POST: Departments/Delete/5
@@ -110,8 +110,8 @@ namespace COMP2007_Lab4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Student student = await db.Students.FindAsync(id);
-            db.Students.Remove(student);
+            Department department = await db.Departments.FindAsync(id);
+            db.Departments.Remove(department);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

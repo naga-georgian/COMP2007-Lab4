@@ -11,107 +11,112 @@ using COMP2007_Lab4.Models;
 
 namespace COMP2007_Lab4.Controllers
 {
-    public class CourseController : Controller
+    public class CoursController : Controller
     {
         private ContosoModel db = new ContosoModel();
 
-        // GET: Course
+        // GET: Cours
         public async Task<ActionResult> Index()
         {
-            return View(await db.Students.ToListAsync());
+            var courses = db.Courses.Include(c => c.Department);
+            return View(await courses.ToListAsync());
         }
 
-        // GET: Course/Details/5
+        // GET: Cours/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Course course = await db.Courses.FindAsync(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(course);
         }
 
-        // GET: Course/Create
+        // GET: Cours/Create
         public ActionResult Create()
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
-        // POST: Course/Create
+        // POST: Cours/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Courses.Add(course);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            return View(course);
         }
 
-        // GET: Course/Edit/5
+        // GET: Cours/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Course course = await db.Courses.FindAsync(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            return View(course);
         }
 
-        // POST: Course/Edit/5
+        // POST: Cours/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(course).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", course.DepartmentID);
+            return View(course);
         }
 
-        // GET: Course/Delete/5
+        // GET: Cours/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Course course = await db.Courses.FindAsync(id);
+            if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(course);
         }
 
-        // POST: Course/Delete/5
+        // POST: Cours/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Student student = await db.Students.FindAsync(id);
-            db.Students.Remove(student);
+            Course course = await db.Courses.FindAsync(id);
+            db.Courses.Remove(course);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

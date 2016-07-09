@@ -18,7 +18,8 @@ namespace COMP2007_Lab4.Controllers
         // GET: Enrollments
         public async Task<ActionResult> Index()
         {
-            return View(await db.Students.ToListAsync());
+            var enrollments = db.Enrollments.Include(e => e.Cours).Include(e => e.Student);
+            return View(await enrollments.ToListAsync());
         }
 
         // GET: Enrollments/Details/5
@@ -28,17 +29,19 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Enrollment enrollment = await db.Enrollments.FindAsync(id);
+            if (enrollment == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(enrollment);
         }
 
         // GET: Enrollments/Create
         public ActionResult Create()
         {
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName");
             return View();
         }
 
@@ -47,16 +50,18 @@ namespace COMP2007_Lab4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "EnrollmentID,CourseID,StudentID,Grade")] Enrollment enrollment)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
+                db.Enrollments.Add(enrollment);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName", enrollment.StudentID);
+            return View(enrollment);
         }
 
         // GET: Enrollments/Edit/5
@@ -66,12 +71,14 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Enrollment enrollment = await db.Enrollments.FindAsync(id);
+            if (enrollment == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName", enrollment.StudentID);
+            return View(enrollment);
         }
 
         // POST: Enrollments/Edit/5
@@ -79,15 +86,17 @@ namespace COMP2007_Lab4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "StudentID,LastName,FirstMidName,EnrollmentDate")] Student student)
+        public async Task<ActionResult> Edit([Bind(Include = "EnrollmentID,CourseID,StudentID,Grade")] Enrollment enrollment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(enrollment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName", enrollment.StudentID);
+            return View(enrollment);
         }
 
         // GET: Enrollments/Delete/5
@@ -97,12 +106,12 @@ namespace COMP2007_Lab4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            Enrollment enrollment = await db.Enrollments.FindAsync(id);
+            if (enrollment == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(enrollment);
         }
 
         // POST: Enrollments/Delete/5
@@ -110,8 +119,8 @@ namespace COMP2007_Lab4.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Student student = await db.Students.FindAsync(id);
-            db.Students.Remove(student);
+            Enrollment enrollment = await db.Enrollments.FindAsync(id);
+            db.Enrollments.Remove(enrollment);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

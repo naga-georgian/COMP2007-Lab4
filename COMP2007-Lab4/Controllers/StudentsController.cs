@@ -13,19 +13,11 @@ namespace COMP2007_Lab4.Controllers
 {
     public class StudentsController : Controller
     {
-
-        // how do I access this data in the view?
-        //public string SubTitle { get; set; }
-
-        // ACTIONS +++++++++++++++++++++++++++++++++++++++++
-
         private ContosoModel db = new ContosoModel();
 
         // GET: Students
         public async Task<ActionResult> Index()
         {
-            ViewBag.SubTitle = "Students List";
-
             return View(await db.Students.ToListAsync());
         }
 
@@ -134,3 +126,4 @@ namespace COMP2007_Lab4.Controllers
         }
     }
 }
+
