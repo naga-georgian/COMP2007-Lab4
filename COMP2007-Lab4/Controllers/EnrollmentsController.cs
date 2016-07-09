@@ -11,25 +11,17 @@ using COMP2007_Lab4.Models;
 
 namespace COMP2007_Lab4.Controllers
 {
-    public class StudentsController : Controller
+    public class EnrollmentsController : Controller
     {
-
-        // how do I access this data in the view?
-        //public string SubTitle { get; set; }
-
-        // ACTIONS +++++++++++++++++++++++++++++++++++++++++
-
         private ContosoModel db = new ContosoModel();
 
-        // GET: Students
+        // GET: Enrollments
         public async Task<ActionResult> Index()
         {
-            ViewBag.SubTitle = "Students List";
-
             return View(await db.Students.ToListAsync());
         }
 
-        // GET: Students/Details/5
+        // GET: Enrollments/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,13 +36,13 @@ namespace COMP2007_Lab4.Controllers
             return View(student);
         }
 
-        // GET: Students/Create
+        // GET: Enrollments/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
+        // POST: Enrollments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +59,7 @@ namespace COMP2007_Lab4.Controllers
             return View(student);
         }
 
-        // GET: Students/Edit/5
+        // GET: Enrollments/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +74,7 @@ namespace COMP2007_Lab4.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
+        // POST: Enrollments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -98,7 +90,7 @@ namespace COMP2007_Lab4.Controllers
             return View(student);
         }
 
-        // GET: Students/Delete/5
+        // GET: Enrollments/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -113,7 +105,7 @@ namespace COMP2007_Lab4.Controllers
             return View(student);
         }
 
-        // POST: Students/Delete/5
+        // POST: Enrollments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
