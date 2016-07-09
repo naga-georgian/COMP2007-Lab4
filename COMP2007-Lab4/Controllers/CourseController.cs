@@ -11,7 +11,7 @@ using COMP2007_Lab4.Models;
 
 namespace COMP2007_Lab4.Controllers
 {
-    public class CoursController : Controller
+    public class CourseController : Controller
     {
         private ContosoModel db = new ContosoModel();
 
